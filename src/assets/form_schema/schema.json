@@ -1,0 +1,33 @@
+[
+    {
+        "fieldType": "TextField",
+        "fieldLabel": "Full Name"
+    },
+    {
+        "fieldType": "PhoneField",
+        "fieldLabel": "Telephone Number"
+    },
+    {
+        "fieldType": "DropdownField",
+        "fieldLabel": "Interest",
+        "options": [
+            "Mountains",
+            "Oceans",
+            "Deserts"
+        ]
+    },
+    {
+        "fieldType": "TextFieldMedium",
+        "fieldLabel": "Description",
+        "maxChars": 500
+    },
+    {
+        "fieldType": "CheckboxesField",
+        "fieldLabel": "Travel",
+        "options": [
+            "Car",
+            "Bus",
+            "Train"
+        ]
+    }
+]
