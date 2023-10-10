@@ -1,30 +1,38 @@
 [
     {
+        "id": 1,
         "fieldType": "TextField",
-        "fieldLabel": "Full Name"
+        "fieldLabel": "Full Name",
+        "value": ""
     },
     {
+        "id" : 2,
         "fieldType": "PhoneField",
-        "fieldLabel": "Telephone Number"
+        "fieldLabel": "Telephone Number",
+        "value": ""
     },
     {
+        "id": 3,
         "fieldType": "DropdownField",
         "fieldLabel": "Interest",
-        "options": [
+        "value": [
             "Mountains",
             "Oceans",
             "Deserts"
         ]
     },
     {
+        "id": 4,
         "fieldType": "TextFieldMedium",
         "fieldLabel": "Description",
+        "value": "",
         "maxChars": 500
     },
     {
-        "fieldType": "CheckboxesField",
+        "id": 5,
+        "fieldType": "CheckboxField",
         "fieldLabel": "Travel",
-        "options": [
+        "value": [
             "Car",
             "Bus",
             "Train"
