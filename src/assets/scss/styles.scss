@@ -1,5 +1,13 @@
 @import "./variables.scss";
 
-h1{
-    color: $main-col;
+:root{
+    background-color: $main-col;
+    color: white;
+
+    main {
+        max-width: 100%;
+        display: flex;
+        justify-content: center;
+      
+      }
 }

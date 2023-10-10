@@ -2,15 +2,22 @@
     <div 
     :id="'checkboxField_' + field.id" 
     class="checkboxFieldWrap" >
+        <div class="checkBoxFieldTitle">
+                {{ field.fieldLabel }}
+        </div>
+
+        <div class="checkboxWrap">
         <div 
         class="checkboxField"
         v-for="option in field.value">
-            <input
-                type="checkbox" 
-                :name="field.fieldType + '_' + option" 
-                :value="option">
-            <label :for="field.fieldType + '_' + option">{{ option }}</label>
+                <input
+                    type="checkbox" 
+                    :name="field.fieldType + '_' + option" 
+                    :value="option">
+                <label :for="field.fieldType + '_' + option">{{ option }}</label>
+            </div>
         </div>
+
     </div>
 </template>
 
@@ -24,10 +31,20 @@ export default {
 </script>
 
 <style lang="scss">
-.checkboxFieldWrap{
-    width: 100%;
-    display: flex;
-    justify-content: center;
+    .checkboxFieldWrap{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
 
-}
+        .checkBoxFieldTitle{
+            width: 100%;
+            text-align: center;
+        }
+
+        .checkboxWrap{
+            width: 50%;
+        }
+
+    }
 </style>

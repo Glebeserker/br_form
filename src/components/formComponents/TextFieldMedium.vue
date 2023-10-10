@@ -1,8 +1,10 @@
 <template>
-    <div :id="'textFieldMedium_' + field.id" class="textFieldMedium">
-        <label :for="field.fieldType + field.id">{{ field.fieldLabel }}</label>
-        <textarea type="tel" :name="field.fieldType + '_' + field.id" >
-        </textarea>
+    <div :id="'textFieldMedium_' + field.id" class="textFieldMediumWrap">
+        <div class="textFieldMedium">
+            <label :for="field.fieldType + field.id">{{ field.fieldLabel }}</label>
+            <textarea type="tel" :name="field.fieldType + '_' + field.id" >
+            </textarea>
+        </div>
     </div>
 </template>
 
@@ -16,9 +18,21 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.textFieldMedium{
+.textFieldMediumWrap{
     width: 100%;
     display: flex;
     justify-content: center;
+
+    div{
+        width: 50%;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+
+        label, textarea{
+            width: 100%;
+        }
+    }
+
 }
 </style>

@@ -25,11 +25,6 @@ export default{
 </script>
 
 <style lang="scss">
-@import url("./assets/scss/variables.scss");
-main {
-  max-width: 100%;
-  display: flex;
-  justify-content: center;
 
-}
+
 </style>

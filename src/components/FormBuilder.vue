@@ -9,17 +9,22 @@
 
 <script>
 import schema from '../assets/formSupportFiles/schema.json'
-import {CheckboxField, DropdownField, PhoneField, TextField, TextFieldMedium} from './formComponents/index.js';
+// import {CheckboxField, DropdownField, PhoneField, TextField, TextFieldMedium} from './formComponents/index.js';
 
 
 export default{
     name: "FormBuilder",
-    components: {
-        CheckboxField, 
-        DropdownField, 
-        PhoneField, 
-        TextField, 
-        TextFieldMedium
+    components: {},
+    
+    created() {
+        // Method to dynamically import formComponents in formComponent folder
+        const formComponents = import.meta.glob('./formComponents/*.vue', {eager:true});
+
+        Object.entries(formComponents).forEach(([path, def]) => {
+            const compName = path.split('/').pop().replace(/\.\w+$/, '')
+            this.$options.components[compName] = def.default;
+        })
+
     },
     data: () => ({
     field_schema: schema,
@@ -61,6 +66,10 @@ export default{
     width: 80%;
     flex-wrap: wrap;
     justify-content: center;
+
+    div:not(:last-child){
+        margin-bottom: 1rem;
+    }
 
     .buttonWraper{
         width: 100%;
