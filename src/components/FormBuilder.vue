@@ -1,15 +1,17 @@
 <template>
-    <form class="formWrapper" >
-        <component v-for="field in field_schema" :key="field.id" :is="field.fieldType"  :field="field"></component>
+    <form class="formWrapper" @submit.prevent="printForm($event)">
+         <!--Loops over schema to call up correct Form Components  -->
+        <component v-for="field in field_schema" :key="field.id" :is="field.fieldType"  :field="field" v-model="itemsForm" ></component>
         <div class="buttonWraper">
-            <button type="submit">Submit</button>
+            <button type="submit" >Submit</button>
         </div>
     </form>
 </template>
 
 <script>
+// importing form data
 import schema from '../assets/formSupportFiles/schema.json'
-// import {CheckboxField, DropdownField, PhoneField, TextField, TextFieldMedium} from './formComponents/index.js';
+
 
 
 export default{
@@ -28,28 +30,29 @@ export default{
     },
     data: () => ({
     field_schema: schema,
-    count_start: 1,
+
     field_data: {},
+
+    itemsForm: {}
 
     // formData
   }),
-  computed: {
-  },
   
   methods: {
-    handler(value){
-        // this.field_data[] = value;
-        console.log(value.data)
-        console.log(value)
-    },
+
     dataBuilder(){
             let i = 0;
             while(this.field_schema[i]){
             console.log(this.field_schema[i].fieldLabel);
-            this.field_data[this.field_schema[i].fieldLabel] = this.field_schema[i].value;
+            this.field_data[this.field_schema[i].fieldType] = this.field_schema[i].value;
             i++;
             }
-        }
+        },
+    printForm(e) {
+        const form = e.target
+        const formData = new FormData(form)
+        console.log(formData)
+    }
   },
 
   mounted(){
@@ -63,21 +66,48 @@ export default{
 <style scoped lang="scss">
 .formWrapper{
     display: flex;
-    width: 80%;
+    width: 35%;
     flex-wrap: wrap;
     justify-content: center;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    color: $main-col;
+
+    @media (max-width: $breakpoint-tablet){
+        min-width: 65%;
+    }
 
     div:not(:last-child){
         margin-bottom: 1rem;
     }
 
     .buttonWraper{
-        width: 100%;
+        width: 75%;
         display: flex;
         justify-content: center;
 
         button{
-            width: 50%;
+            margin-top: 1rem;
+            width: 100%;
+            padding: 14px 20px;
+            background-color: $main-col;
+            border-radius: 4px;
+            border: 0;
+            box-shadow: none;
+            cursor: pointer;
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 600;
+
+            &:hover{
+                background-color: green;
+                transition: 0.2s;
+            }
+            &:active{
+                background-color: $sec-col;
+                color: $main-col;
+                transition: 0.2s;
+            }
         }
     }
 }
