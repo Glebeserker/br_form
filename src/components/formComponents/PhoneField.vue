@@ -11,7 +11,7 @@
                 @keypress="phoneCheck($event)"
                 
                 >
-            <p v-if="!valid" class="warningMsg">
+            <p v-if="valid == false" class="warningMsg">
                 {{ warningMsg }}{{ lengthMessage }}
             </p>
 

@@ -84,7 +84,7 @@ export default{
     .buttonWraper{
         width: 75%;
         display: flex;
-        justify-content: center;
+        flex-wrap: wrap;
 
         button{
             margin-top: 1rem;
