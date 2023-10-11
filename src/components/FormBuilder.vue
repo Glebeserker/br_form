@@ -3,8 +3,11 @@
          <!--Loops over schema to call up correct Form Components  -->
         <component v-for="field in field_schema" :key="field.id" :is="field.fieldType"  :field="field" v-model="itemsForm" ></component>
         <div class="buttonWraper">
-            <button type="submit" :disabled="invalid == true">Submit</button>
+            <button type="submit" @click="showResults">Submit</button>
         </div>
+        <Results 
+        v-show="show"
+        @close="closeResults"/>
     </form>
 </template>
 
@@ -14,9 +17,11 @@ import schema from '../assets/formSupportFiles/schema.json'
 
 
 
+
 export default{
     name: "FormBuilder",
-    components: {},
+    components: {
+    },
     
     created() {
         // Method to dynamically import formComponents in formComponent folder
@@ -34,10 +39,11 @@ export default{
     itemsForm: {},
     count: 0,
     invalid: true,
-
+    show: false,
   }),
   
   methods: {
+    // Collects data using FormData and stores it in local
     printForm(e) {
         const form = e.target
         const formData = new FormData(form)
@@ -50,9 +56,18 @@ export default{
         window.localStorage.setItem(this.count, data);
         this.count += 1;
         console.log(JSON.parse(window.localStorage.getItem('arr')))
+
+        // Test to execute vuex to store organized data to local (failed)
+        this.$store.commit("saveToLocal");
+    },
+    showResults() {
+        this.show = true;
+    },
+    closeResults(){
+        this.show = false;
     }
   },
-
+  
 }
 </script>
 
