@@ -15,7 +15,7 @@
                         :name="field.fieldType + '_' + option + '_' + field.id" 
                         :value="option"
                         v-model="optionsSelected"
-                        @mouseup="checkOptions"
+                        @change="checkOptions"
                         
                         >
                     <label :for="field.fieldType + '_' + option">
@@ -41,7 +41,8 @@ export default {
     methods: {
         checkOptions(){
             let len = this.optionsSelected.length;
-            if(len < 1){
+            console.log(len)
+            if(len === 0){
                 this.valid = false;
             }
             else{

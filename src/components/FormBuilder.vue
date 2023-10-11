@@ -5,9 +5,6 @@
         <div class="buttonWraper">
             <button type="submit" @click="showResults">Submit</button>
         </div>
-        <Results 
-        v-show="show"
-        @close="closeResults"/>
     </form>
 </template>
 
