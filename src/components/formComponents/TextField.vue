@@ -7,7 +7,8 @@
             <input 
             type="text" 
             :name="field.fieldType + '_' + field.id"
-            v-model='textData.fieldData' @input="checkInput">
+            v-model='fieldData' @keypress="checkInput" @focusout="createStore">
+            <p v-if="valid == false" class="warnMsg">{{ warnMsg }}</p>
         </div>
     </div>
 </template>
@@ -21,18 +22,34 @@ export default {
         field: Object,
     },
     data: () => ({
-        textData: {
-            valid: null,
-            fieldData: "",
-        }
+        fieldData: "",
+        warnMsg: "",
+        valid: null,
+
     }),
     methods: {
-        // checkInput(){
-        //     if(this.textData.fieldData.length < 3 || /\s/g.test(this.textData.fieldData)){
-        //         console.log("meep")
-        //     }
-        // }
-    }
+        createStore(){
+            this.$store.commit('updateformData', {label: this.field.fieldLabel , value2: this.fieldData, val: this.valid})
+        },
+        checkInput(){
+            if(this.fieldData.length < 3 && this.fieldData.indexOf(" ") >= 0){
+                this.valid = false;
+                this.warnMsg = "Need to have at least 3 characters"
+            }
+            else if(this.fieldData.length < 3 && this.fieldData.indexOf(" ") < 0){
+                this.valid=false;
+                this.warnMsg = "Need to have at least 3 characters and a space";
+            }
+            else if(this.fieldData.indexOf(" ") < 0){
+                this.valid=false;
+                this.warnMsg = "Need to have a space between characters";
+            }
+            else{
+                this.valid = true;
+            }
+        }
+    },
+    
     
     
 }
@@ -59,6 +76,10 @@ export default {
         border-radius: 10px;
         padding: 1rem;
         font-size: 1.3rem;
+    }
+
+    .warnMsg{
+        color: red;
     }
 }
 }

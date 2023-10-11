@@ -2,7 +2,7 @@
     <div :id="'textFieldMedium_' + field.id" class="textFieldMediumWrap">
         <div class="textFieldMedium">
             <label :for="field.fieldType + field.id">{{ field.fieldLabel }}</label>
-            <textarea  :name="field.fieldType + '_' + field.id" @input="checkLimit" v-model="message">
+            <textarea  :name="field.fieldType + '_' + field.id" @input="checkLimit" v-model="message" @focusout="createStore">
             </textarea>
             <p :class="{'danger': remaining < 10, 'out': remaining == 0}">{{ instruction }}</p>
         </div>
@@ -22,6 +22,9 @@ export default {
         checkLimit(){
             this.message = this.message.substring(0, this.field.maxChars);
             
+        },
+        createStore(){
+            this.$store.commit('updateformData', {label: this.field.fieldLabel , value2: this.message, val: this.valid})
         }
     },
     computed:{

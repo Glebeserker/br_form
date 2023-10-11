@@ -9,7 +9,7 @@
                 :name="field.fieldType + '_' + field.id" 
                 v-model="phone" 
                 @keypress="phoneCheck($event)"
-                
+                @focusout="createStore"
                 >
             <p v-if="valid == false" class="warningMsg">
                 {{ warningMsg }}{{ lengthMessage }}
@@ -35,6 +35,9 @@ export default {
     }),
     methods: {
         // Checks if the input is a digit and not anything else
+        // A computed property to check length of the phone number
+        // Maxium is 15 and minimum is set to 10, can be also dynamic where values 
+        // are passed as a prop
         phoneCheck(e) {
             let phoneDigit = e.keyCode;
             const phoneLen = this.phone.length;
@@ -73,13 +76,10 @@ export default {
                     this.valid = true;
                 }
             }
-
+        },
+        createStore(){
+            this.$store.commit('updateformData', {label: this.field.fieldLabel , value2: this.phone, val: this.valid})
         }
-    },
-    computed: {
-        // A computed property to check length of the phone number
-        // Maxium is 15 and minimum is set to 10, can be also dynamic where values 
-        // are passed as a prop
     }
 }
 </script>

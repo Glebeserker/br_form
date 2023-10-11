@@ -12,12 +12,17 @@
             v-for="option in field.value">
                     <input
                         type="checkbox" 
-                        :name="field.fieldType + '_' + option" 
-                        :value="option">
+                        :name="field.fieldType + '_' + option + '_' + field.id" 
+                        :value="option"
+                        v-model="optionsSelected"
+                        @mouseup="checkOptions"
+                        
+                        >
                     <label :for="field.fieldType + '_' + option">
                         {{ option }}
                     </label>
                 </div>
+                <p v-if="valid == false" class="warnMsg">Must have at least 1 option selected</p>
             </div>
         </fieldset>
     </div>
@@ -28,7 +33,25 @@ export default {
     name: "CheckboxField",
     props: {
         field: Object
-    }
+    },
+    data: () => ({
+        optionsSelected: [],
+        valid: null,
+    }),
+    methods: {
+        checkOptions(){
+            let len = this.optionsSelected.length;
+            if(len < 1){
+                this.valid = false;
+            }
+            else{
+                this.valid = true;
+            }
+        },
+        createStore(){
+            this.$store.commit('updateformData', {label: this.field.fieldLabel , value2: this.optionsSelected, val: this.valid})
+        },
+    },
 }
 </script>
 
@@ -58,6 +81,10 @@ export default {
 
             .checkboxField:not(:last-child) {
                 margin-bottom: 1rem;
+            }
+
+            .warnMsg{
+                color: red;
             }
         }
 

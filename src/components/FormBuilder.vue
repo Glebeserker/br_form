@@ -3,7 +3,7 @@
          <!--Loops over schema to call up correct Form Components  -->
         <component v-for="field in field_schema" :key="field.id" :is="field.fieldType"  :field="field" v-model="itemsForm" ></component>
         <div class="buttonWraper">
-            <button type="submit" >Submit</button>
+            <button type="submit" :disabled="invalid == true">Submit</button>
         </div>
     </form>
 </template>
@@ -30,35 +30,28 @@ export default{
     },
     data: () => ({
     field_schema: schema,
-
     field_data: {},
+    itemsForm: {},
+    count: 0,
+    invalid: true,
 
-    itemsForm: {}
-
-    // formData
   }),
   
   methods: {
-
-    dataBuilder(){
-            let i = 0;
-            while(this.field_schema[i]){
-            console.log(this.field_schema[i].fieldLabel);
-            this.field_data[this.field_schema[i].fieldType] = this.field_schema[i].value;
-            i++;
-            }
-        },
     printForm(e) {
         const form = e.target
         const formData = new FormData(form)
         console.log(formData)
+        for(const item of formData.entries()){
+            this.itemsForm[item[0]] = item[1];
+            console.log(item[0], item[1])
+        }
+        const data = JSON.stringify(this.itemsForm);
+        window.localStorage.setItem(this.count, data);
+        this.count += 1;
+        console.log(JSON.parse(window.localStorage.getItem('arr')))
     }
   },
-
-  mounted(){
-    this.dataBuilder();
-
-  }
 
 }
 </script>
@@ -98,6 +91,11 @@ export default{
             color: white;
             font-size: 1.5rem;
             font-weight: 600;
+
+            &[disabled = "true"]{
+                background-color: grey;
+                transition: 0.2s;
+            }
 
             &:hover{
                 background-color: green;
