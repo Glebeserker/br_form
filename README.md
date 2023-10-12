@@ -10,11 +10,17 @@ Component can be reused and using new data updated. Need to import new infomatio
 directly.
 
 Successes: {
+
  *Created real time custom validators for each field.
+ 
  *Auto registration of child components
+ 
  *Good Design
 
 Failures: {
+
  *Focused too much time on validation and ran out of time to get Vuex properly to work (plus lack of exposure to it)
+ 
  *Data submited gets saved to local machine
+ 
  *No results page
